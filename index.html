@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMSALABIM – Solusi Cepat Pesan Produk & Jasa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-slate-950 transition-colors duration-300">
+
+    <div id="app" class="min-h-screen">
+        <!-- Navbar -->
+        <nav class="fixed w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+                <div class="text-2xl font-bold text-blue-600 cursor-pointer" onclick="showPage('home')">SIMSALABIM</div>
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="pt-24 pb-12 px-4 max-w-4xl mx-auto">
+            <!-- Home Page -->
+            <div id="page-home" class="text-center block">
+                <img src="https://freeimage.host/i/C3lbqWx" alt="SIMSALABIM Logo" class="mx-auto mb-6 h-32 w-auto object-contain">
+                <h1 class="text-5xl font-extrabold text-slate-900 dark:text-white mb-6">SIMSALABIM</h1>
+                <p class="text-xl text-slate-600 dark:text-slate-300 mb-8">Pesan Produk dan Jasa Apa Saja dengan Mudah dan Cepat.</p>
+                <button onclick="showPage('order')" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-lg">Pesan Sekarang</button>
+            </div>
+
+            <!-- Order Page -->
+            <div id="page-order" class="hidden bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700">
+                <h2 class="text-3xl font-bold mb-8 dark:text-white text-center">Formulir Pesanan</h2>
+                <form id="orderForm" class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold dark:text-slate-300">Nama Pemesan</label>
+                        <input required id="name" class="w-full p-4 rounded-xl border dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Contoh: Budi Santoso">
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold dark:text-slate-300">Nomor WhatsApp</label>
+                            <input required id="wa" type="tel" class="w-full p-4 rounded-xl border dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Contoh: 08123456789">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold dark:text-slate-300">Kategori Layanan</label>
+                            <select id="category" class="w-full p-4 rounded-xl border dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none">
+                                <option value="Desain Grafis">Desain Grafis</option>
+                                <option value="Pembuatan Website">Pembuatan Website</option>
+                                <option value="Pengetikan">Pengetikan</option>
+                                <option value="Pendidikan, Privat & Pelatihan">Pendidikan, Privat & Pelatihan</option>
+                                <option value="AI & Teknologi">AI & Teknologi</option>
+                                <option value="Percetakan">Percetakan</option>
+                                <option value="Produk Digital (Ebook, Aplikasi AI Generator)">Produk Digital</option>
+                                <option value="Simpan Pinjam Koperasi Syari'ah">Simpan Pinjam Koperasi Syari'ah</option>
+                                <option value="Makanan dan Minuman">Makanan dan Minuman</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold dark:text-slate-300">Deskripsi Kebutuhan</label>
+                        <textarea required id="desc" rows="4" class="w-full p-4 rounded-xl border dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold dark:text-slate-300">Lokasi</label>
+                        <input required id="location" class="w-full p-4 rounded-xl border dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Kota atau alamat">
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">Kirim Pesanan via WhatsApp</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showPage(page) {
+            document.getElementById('page-home').classList.toggle('hidden', page !== 'home');
+            document.getElementById('page-order').classList.toggle('hidden', page !== 'order');
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            document.getElementById('theme-icon').innerText = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+        }
+
+        document.getElementById('orderForm').onsubmit = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const wa = document.getElementById('wa').value;
+            const cat = document.getElementById('category').value;
+            const desc = document.getElementById('desc').value;
+            const loc = document.getElementById('location').textContent;
+            
+            const message = `Halo Admin SIMSALABIM, saya ${name}. Ingin pesan ${cat}. Permintaan: ${desc}. Lokasi: ${loc}`;
+            window.open(`https://wa.me/6285692085114?text=${encodeURIComponent(message)}`, '_blank');
+        };
+    </script>
+</body>
+</html>
